@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyq.edu.dao.DefaultEduInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lyq.edu.entity.DefaultEduInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="defaultSchool" property="defaultschool" jdbcType="VARCHAR" />
+    <result column="defaultCollege" property="defaultcollege" jdbcType="VARCHAR" />
+    <result column="defaultMajor" property="defaultmajor" jdbcType="VARCHAR" />
+    <result column="defaultCourse" property="defaultcourse" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lyq.edu.entity.DefaultEduInfo" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, defaultSchool, defaultCollege, defaultMajor, defaultCourse
+  </sql>
+  <sql id="Blob_Column_List" >
+    description
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.lyq.edu.entity.DefaultEduInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_defaulteduinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lyq.edu.entity.DefaultEduInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_defaulteduinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_defaulteduinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_defaulteduinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lyq.edu.entity.DefaultEduInfoExample" >
+    delete from tbl_defaulteduinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lyq.edu.entity.DefaultEduInfo" >
+    insert into tbl_defaulteduinfo (id, defaultSchool, defaultCollege, 
+      defaultMajor, defaultCourse, description
+      )
+    values (#{id,jdbcType=INTEGER}, #{defaultschool,jdbcType=VARCHAR}, #{defaultcollege,jdbcType=VARCHAR}, 
+      #{defaultmajor,jdbcType=VARCHAR}, #{defaultcourse,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyq.edu.entity.DefaultEduInfo" >
+    insert into tbl_defaulteduinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="defaultschool != null" >
+        defaultSchool,
+      </if>
+      <if test="defaultcollege != null" >
+        defaultCollege,
+      </if>
+      <if test="defaultmajor != null" >
+        defaultMajor,
+      </if>
+      <if test="defaultcourse != null" >
+        defaultCourse,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="defaultschool != null" >
+        #{defaultschool,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultcollege != null" >
+        #{defaultcollege,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultmajor != null" >
+        #{defaultmajor,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultcourse != null" >
+        #{defaultcourse,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lyq.edu.entity.DefaultEduInfoExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_defaulteduinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_defaulteduinfo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.defaultschool != null" >
+        defaultSchool = #{record.defaultschool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultcollege != null" >
+        defaultCollege = #{record.defaultcollege,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultmajor != null" >
+        defaultMajor = #{record.defaultmajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultcourse != null" >
+        defaultCourse = #{record.defaultcourse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbl_defaulteduinfo
+    set id = #{record.id,jdbcType=INTEGER},
+      defaultSchool = #{record.defaultschool,jdbcType=VARCHAR},
+      defaultCollege = #{record.defaultcollege,jdbcType=VARCHAR},
+      defaultMajor = #{record.defaultmajor,jdbcType=VARCHAR},
+      defaultCourse = #{record.defaultcourse,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_defaulteduinfo
+    set id = #{record.id,jdbcType=INTEGER},
+      defaultSchool = #{record.defaultschool,jdbcType=VARCHAR},
+      defaultCollege = #{record.defaultcollege,jdbcType=VARCHAR},
+      defaultMajor = #{record.defaultmajor,jdbcType=VARCHAR},
+      defaultCourse = #{record.defaultcourse,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyq.edu.entity.DefaultEduInfo" >
+    update tbl_defaulteduinfo
+    <set >
+      <if test="defaultschool != null" >
+        defaultSchool = #{defaultschool,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultcollege != null" >
+        defaultCollege = #{defaultcollege,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultmajor != null" >
+        defaultMajor = #{defaultmajor,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultcourse != null" >
+        defaultCourse = #{defaultcourse,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lyq.edu.entity.DefaultEduInfo" >
+    update tbl_defaulteduinfo
+    set defaultSchool = #{defaultschool,jdbcType=VARCHAR},
+      defaultCollege = #{defaultcollege,jdbcType=VARCHAR},
+      defaultMajor = #{defaultmajor,jdbcType=VARCHAR},
+      defaultCourse = #{defaultcourse,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyq.edu.entity.DefaultEduInfo" >
+    update tbl_defaulteduinfo
+    set defaultSchool = #{defaultschool,jdbcType=VARCHAR},
+      defaultCollege = #{defaultcollege,jdbcType=VARCHAR},
+      defaultMajor = #{defaultmajor,jdbcType=VARCHAR},
+      defaultCourse = #{defaultcourse,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

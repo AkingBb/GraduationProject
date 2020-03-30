@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyq.edu.dao.ServerBoardMapper" >
+  <resultMap id="BaseResultMap" type="com.lyq.edu.entity.ServerBoard" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ipAddress" property="ipaddress" jdbcType="VARCHAR" />
+    <result column="pcRecvPort" property="pcrecvport" jdbcType="INTEGER" />
+    <result column="boardRecvPort" property="boardrecvport" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="verifyCode" property="verifycode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ipAddress, pcRecvPort, boardRecvPort, status, verifyCode
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lyq.edu.entity.ServerBoardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_serverboard
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_serverboard
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_serverboard
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lyq.edu.entity.ServerBoardExample" >
+    delete from tbl_serverboard
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lyq.edu.entity.ServerBoard" >
+    insert into tbl_serverboard (id, ipAddress, pcRecvPort, 
+      boardRecvPort, status, verifyCode
+      )
+    values (#{id,jdbcType=INTEGER}, #{ipaddress,jdbcType=VARCHAR}, #{pcrecvport,jdbcType=INTEGER}, 
+      #{boardrecvport,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{verifycode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyq.edu.entity.ServerBoard" >
+    insert into tbl_serverboard
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ipaddress != null" >
+        ipAddress,
+      </if>
+      <if test="pcrecvport != null" >
+        pcRecvPort,
+      </if>
+      <if test="boardrecvport != null" >
+        boardRecvPort,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="verifycode != null" >
+        verifyCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ipaddress != null" >
+        #{ipaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pcrecvport != null" >
+        #{pcrecvport,jdbcType=INTEGER},
+      </if>
+      <if test="boardrecvport != null" >
+        #{boardrecvport,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="verifycode != null" >
+        #{verifycode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lyq.edu.entity.ServerBoardExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_serverboard
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_serverboard
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ipaddress != null" >
+        ipAddress = #{record.ipaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcrecvport != null" >
+        pcRecvPort = #{record.pcrecvport,jdbcType=INTEGER},
+      </if>
+      <if test="record.boardrecvport != null" >
+        boardRecvPort = #{record.boardrecvport,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.verifycode != null" >
+        verifyCode = #{record.verifycode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_serverboard
+    set id = #{record.id,jdbcType=INTEGER},
+      ipAddress = #{record.ipaddress,jdbcType=VARCHAR},
+      pcRecvPort = #{record.pcrecvport,jdbcType=INTEGER},
+      boardRecvPort = #{record.boardrecvport,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=CHAR},
+      verifyCode = #{record.verifycode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyq.edu.entity.ServerBoard" >
+    update tbl_serverboard
+    <set >
+      <if test="ipaddress != null" >
+        ipAddress = #{ipaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pcrecvport != null" >
+        pcRecvPort = #{pcrecvport,jdbcType=INTEGER},
+      </if>
+      <if test="boardrecvport != null" >
+        boardRecvPort = #{boardrecvport,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="verifycode != null" >
+        verifyCode = #{verifycode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyq.edu.entity.ServerBoard" >
+    update tbl_serverboard
+    set ipAddress = #{ipaddress,jdbcType=VARCHAR},
+      pcRecvPort = #{pcrecvport,jdbcType=INTEGER},
+      boardRecvPort = #{boardrecvport,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      verifyCode = #{verifycode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
